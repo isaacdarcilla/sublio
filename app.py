@@ -25,9 +25,9 @@ class Sublio(Gtk.Window):
 
         grid.attach(self.label, 1, 0, 1, 1)
 
-        self.set_border_width(5)
+        self.set_border_width(1)
 
-        self.set_title("Entry")
+        self.set_title("Sublio")
         self.set_default_size(300, 180)
         self.connect("destroy", Gtk.main_quit)
 
