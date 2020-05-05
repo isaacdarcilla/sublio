@@ -3,17 +3,36 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 
 class Sublio(Gtk.Window):
+
     def __init__(self):
-        Gtk.Window.__init__(self, title="Sublio")
-        self.set_size_request(450, 200)
-        self.timeout_id = None
+        super(Sublio, self).__init__()
 
-        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
-        self.add(vbox)
+        self.init_ui()
 
-        self.entry = Gtk.Entry()
-        self.entry.set_text("Enter movie title")
-        vbox.pack_start(self.entry, True, True, 0)
+    def init_ui(self):    
+
+        grid = Gtk.Grid()
+        grid.set_column_spacing(5)
+        self.add(grid)        
+
+        entry = Gtk.Entry()
+        entry.connect("key-release-event", self.on_key_release)
+
+        grid.attach(entry, 0, 0, 1, 1)
+
+        self.label = Gtk.Label("")
+        self.label.set_width_chars(15)
+
+        grid.attach(self.label, 1, 0, 1, 1)
+
+        self.set_border_width(5)
+
+        self.set_title("Entry")
+        self.set_default_size(300, 180)
+        self.connect("destroy", Gtk.main_quit)
+
+    def on_key_release(self, widget, event):
+        self.label.set_text(widget.get_text())
 
 
 
