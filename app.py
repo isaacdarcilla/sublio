@@ -1,42 +1,29 @@
 import gi
-gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk
 
-class Sublio(Gtk.Window):
+gi.require_version("Gtk", "3.0")
+from gi.repository import Gtk, GLib
 
+
+class EntryWindow(Gtk.Window):
     def __init__(self):
-        super(Sublio, self).__init__()
+        Gtk.Window.__init__(self, title="Sublio")
+        self.set_size_request(300, 100)
 
-        self.init_ui()
+        self.timeout_id = None
 
-    def init_ui(self):    
+        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=2)
+        self.add(vbox)
 
-        grid = Gtk.Grid()
-        grid.set_column_spacing(5)
-        self.add(grid)        
+        self.entry = Gtk.Entry()
+        self.entry.set_text("Enter movie name to search")
+        self.entry.set_icon_from_icon_name(Gtk.EntryIconPosition.PRIMARY, "system-search-symbolic")
+        vbox.pack_start(self.entry, True, True, 0)
 
-        entry = Gtk.Entry()
-        entry.connect("key-release-event", self.on_key_release)
-
-        grid.attach(entry, 0, 0, 1, 1)
-
-        self.label = Gtk.Label("")
-        self.label.set_width_chars(15)
-
-        grid.attach(self.label, 1, 0, 1, 1)
-
-        self.set_border_width(1)
-
-        self.set_title("Sublio")
-        self.set_default_size(300, 180)
-        self.connect("destroy", Gtk.main_quit)
-
-    def on_key_release(self, widget, event):
-        self.label.set_text(widget.get_text())
+        hbox = Gtk.Box(spacing=2)
+        vbox.pack_start(hbox, True, True, 0)
 
 
-
-app = Sublio()
-app.connect("delete-event", Gtk.main_quit)
-app.show_all()
+win = EntryWindow()
+win.connect("destroy", Gtk.main_quit)
+win.show_all()
 Gtk.main()
