@@ -3,6 +3,7 @@ import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, GLib
 
+from utils.window import Window
 
 class Sublio(Gtk.Window):
     def __init__(self):
@@ -21,7 +22,9 @@ class Sublio(Gtk.Window):
         vbox.pack_start(self.entry, True, True, 0)
 
     def on_key_release(self, widget, event):
-        self.label.set_text(widget.get_text())
+        window = Window(self)
+        dialog = window.run()
+        window.destroy()
 
 win = Sublio()
 win.connect("destroy", Gtk.main_quit)
