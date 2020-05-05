@@ -3,8 +3,6 @@ import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, GLib
 
-from utils.window import Window
-
 class Sublio(Gtk.Window):
     def __init__(self):
         Gtk.Window.__init__(self, title="Sublio")
@@ -21,10 +19,12 @@ class Sublio(Gtk.Window):
         self.entry.connect("key-release-event", self.on_key_release)
         vbox.pack_start(self.entry, True, True, 0)
 
-    def on_key_release(self, widget, event):
-        window = Window(self)
-        dialog = window.run()
-        window.destroy()
+        label = Gtk.Label("This is a dialog to display additional information")
+
+
+    def on_key_release(self, event, widget):
+        self.label.set_text(widget.get_text())
+
 
 win = Sublio()
 win.connect("destroy", Gtk.main_quit)
