@@ -4,7 +4,7 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, GLib
 
 
-class EntryWindow(Gtk.Window):
+class Sublio(Gtk.Window):
     def __init__(self):
         Gtk.Window.__init__(self, title="Sublio")
         self.set_size_request(300, 100)
@@ -23,7 +23,7 @@ class EntryWindow(Gtk.Window):
         vbox.pack_start(hbox, True, True, 0)
 
 
-win = EntryWindow()
+win = Sublio()
 win.connect("destroy", Gtk.main_quit)
 win.show_all()
 Gtk.main()
